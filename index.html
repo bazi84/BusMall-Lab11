@@ -5,57 +5,216 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab11-BusMall</title>
+  
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="CSS/reset.css">
-  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="CSS/style.css">
-  <script></script>
+
+  
 </head>
 <body>
   <header>
-    <img id="logo" src="busMallimages/Busmall logo.png" alt="logo img">
-    <h1>BusMall</h1>
+    <div class="container logo">
+      <div class="row">
+        <div class="col-md-12"><a href="#"><img class="logoimg" src="busMallimages/Busmall logo.png "  width="150" alt="catalog"></a></div>
+      </div>
+
+      <canvas id="chart"></canvas>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+      <!-- <script type="text/javascript" src="app.js"></script> -->
+
+    </div>
+    <nav class="navbar navbar-default" role="navigation"> 
+      <div class="navbar-header">
+        
+      </div>
+
+      <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbar-collapse-4">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#about_us">About us</a></li>
+          <li><a href="#product">Products</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        
+        
   </header>
-    <main>
-      <section>
-        <div id="Results">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-          <img src="" alt="">
-        </div>
-      </section>
-      <section>
-        <div class="grid-container">
-          <div class="image-galary">
-            <a href="busMallimages/banana.jpg" class="img-1">
-            <i class="icon ion-md-expand"></i>
-            </a>
-            <a href="busMallimages/tauntaun.jpg" class="img-1">
-            <i class="icon ion-md-expand"></i>
-            </a>
-            <a href="busMallimages/bathroom.jpg" class="img-1">
-            <i class="icon ion-md-expand"></i>
-            </a>
-          </div>          
-        </div>
-      </section>
-      <section>
+  <div class="container" id="home">
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">	
+         
+       <section>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <h3>BusMall Products</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <div class="item_container">
+
+                <ul id="product_clicks">
+                  <!-- <div class="item">
+                    
+                      <img src="busMallimages/banana.jpg" alt="banana">
+                      <p>Banana</p>
+                    </a>
+                  </div>                           
+               	  <div class="item">
+                  
+                    <img src="busMallimages/bag.jpg" alt="suitcase">
+                    <p>Suitcase</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/bathroom.jpg" alt="Tablet holder">
+                    <p>Tablet holder</p>
+                  </a>
+                </div>                  
+                <div class="item">
+                  
+                    <img src="busMallimages/boots.jpg" alt="boots">
+                    <p>Comfy Rain Boots</p>
+                  </a>
+                </div>
+                                  
+                <div class="item">
+                  
+                    <img src="busMallimages/breakfast.jpg" alt="portable breakfast maker">
+                    <p class="hideOverflow"><abbr title="Portable Breakfast Maker">Portable Breakfast Maker</abbr></p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/bubblegum.jpg" alt="meatball">
+                    <p>Chewy MeatBalls</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/chair.jpg" alt="chair">
+                    <p>Comfy Chair</p>
+                  </a>
+                </div>
+                </div>   
+                <div class="item">
+                  
+                    <img src="busMallimages/cthulhu.jpg" alt="toy">
+                    <p>Companion Buddy</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/dog-duck.jpg" alt="dog">
+                    <p>Give Your Dog A Cute Duck Mask</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/dragon.jpg" alt="toy">
+                    <p>Organic Dragon Meat To Give You Strength</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/pen.jpg" alt="pen">
+                    <p>Multi Purpose Pen</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/pet-sweep.jpg" alt="[pet sweep]">
+                    <p>Have Your Pet Help You Sweep</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/scissors.jpg" alt="scissor">
+                    <p>Fully Loaded Scissor</p>
+                  </a>
+                </div>
+                </div>   
+                <div class="item">
+                  
+                    <img src="busMallimages/shark.jpg" alt="comfy blanket">
+                    <p>Cozy Comfortable Blanket</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/sweep.png" alt="baby clothes">
+                    <p>Cozy Comfortable Coveralls</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/tauntaun.jpg" alt="comfy sleepingbag">
+                    <p>Cozy Comfortable Sleeping Bag</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/unicorn.jpg" alt="delicious meat">
+                    <p>Delicious Meaty Bites</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/water-can.jpg" alt="water jug">
+                    <p>Best Water Garden Container</p>
+                  </a>
+                </div>
+                <div class="item">
+                  
+                    <img src="busMallimages/wine-glass.jpg" alt="wine glass">
+                    <p>Durable Wine Glass</p>
+                  </a>
+                </div> -->
+              </ul>
+                                  
+              </div>
+            </div>
+          </div>
+          
+          <section id="all_products">
+            <img id="left_product_img" src="" alt="">
+            <h2 id="left_product_h2"></h2>
+            <img id="center_product_img" src="" alt="">
+            <h2 id="center_product_h2"></h2>
+            <img id="right_product_img" src="" alt="">
+            <h2 id="right_product_h2"></h2>
+          </section>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+                            <a href="#" class="btn btn-primary" role="button">Top Page</a>
+            </div>
+          </div> 
+                    
+      <section>        
         <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse unde ex dolorum autem perspiciatis, labore accusantium cupiditate voluptatem tempora? Blanditiis delectus veritatis, animi iusto quas doloremque. Eligendi autem dolorum natus! Odit maiores minima, a culpa consequatur perspiciatis. Accusantium consectetur expedita dolore in vitae nam, dolores sunt deserunt iure distinctio eaque dignissimos quos adipisci. Amet repudiandae nesciunt deserunt accusantium, earum tenetur.
           </p>
         </div>
       </section>
-    </main>
-    <footer>
-      <div>
 
+    <footer class="container">
+      <div class="social_buttons">
+        <a href="#" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a>
+        <a href="#" class="icon-button facebook"><i class="icon-facebook"></i><span></span></a>
+        <a href="#" class="icon-button google-plus"><i class="icon-google-plus"></i><span></span></a>
       </div>
-    </footer>  
+			<div class="credit">
+				<p id="templatemo_cr_bar">
+					Copyright © 2072 <a href="#">Abdulkadir Sheikh</a>
+				</p>
+			</div>
+		</footer>    
+    
+        <script src="JS/app.js"></script>
+
 </body>
 </html>
