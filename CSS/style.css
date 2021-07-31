@@ -30,6 +30,10 @@ footer a { color: #FFFFFF; }
 .thumbnail { display: inline-block;	-webkit-transition: none; transition: none; 
 }
 
+#all_products{
+  display: flex;
+  justify-content: center;
+}
 .item { margin-bottom: 18px; max-width: 180px; width: 160px; }
 .item img {	width: 140px; height: 140px; margin: 5px; }
 .item p { text-align: center; }
@@ -37,7 +41,7 @@ footer a { color: #FFFFFF; }
 }
 
 .navbar-default { background-color: #5ab4ba; border-color: #e7e7e7; max-width: 980px; margin: 0 auto; 
-  
+
 }
 .navbar { border-radius: 0px; border: none; font-weight: bold; font-size: 1.4rem;
 
