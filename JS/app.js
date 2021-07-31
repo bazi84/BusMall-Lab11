@@ -1,321 +1,283 @@
-'use strict'
+"use strict";
 
 // constructor for products
 
-
 //----------------------------global variables----------------------//
 
-const leftImgElem = document.getElementById('left_product_img')
-const leftH2Elem = document.getElementById('left_producth2')
-const centerImgElem = document.getElementById('center_product_img')
-const centerH2Elem = document.getElementById('center_producth2')
-const rightImgElem = document.getElementById('right_product_img')
-const rightH2Elem = document.getElementById('right_producth2')
-const voteContainerElem = document.getElementById('all-products')
-const resultsUlElem = document.getElementById('product-click')
-var stats = document.getElementById('stats');
-var productContainer = document.getElementById('all_products');
-// const ctx = document.getElementById('chart').getContext('2d');
-Product.allProducts = []
-console.log(Product.allProducts.length)
+const leftImgElem = document.getElementById("left_product_img");
+const leftH2Elem = document.getElementById("left_producth2");
+const centerImgElem = document.getElementById("center_product_img");
+const centerH2Elem = document.getElementById("center_producth2");
+const rightImgElem = document.getElementById("right_product_img");
+const rightH2Elem = document.getElementById("right_producth2");
+const voteContainerElem = document.getElementById("all-products");
+const resultsUlElem = document.getElementById("product-click");
+
+Product.allProducts = [];
 Product.seen = [];
 Product.totalClicks = 0;
-// let sectionElement = document.getElementById('products-for-vote');
-let productTable = document.createElement('table')
-let sectionElement2 = document.getElementById('table')
-var chartContainer = document.getElementById('chartContainer');
-let productVotes = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-let productShown = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-let productNames = []
-let maxVotes = 10;
-var allProductNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-var allProductSrc = ['./img/bag.jpg', './img/banana.jpg', './img/bathroom.jpg', './img/boots.jpg', './img/breakfast.jpg', './img/bubblegum.jpg', './img/chair.jpg', './img/cthulhu.jpg', './img/dog-duck.jpg', './img/dragon.jpg', './img/pen.jpg', './img/pet-sweep.jpg', './img/scissors.jpg', './img/shark.jpg', './img/sweep.png', './img/tauntaun.jpg', './img/unicorn.jpg', './img/usb.gif', './img/water-can.jpg', './img/wine-glass.jpg']
 
+let productVotes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let productShown = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let productNames = [];
+let maxVote = 10;
 
+var productTable = document.createElement("table");
+var sectionElement = document.getElementById("products-for-vote");
+var sectionElement2 = document.getElementById("table");
 
 let currentLeft = null;
 let currentRight = null;
 let currentCenter = null;
 
-
 //--------------------------constructor function --------------------//
 
-function Product (name, imgPath) {
+function Product(name, imgPath) {
   this.name = name;
   this.imgPath = imgPath;
   this.clicks = 0;
   this.views = 0;
-  console.log
-  Product.allProducts.push(this)
-  console.log(Product.allProducts.length)
-  // productNames.push(this.imgPath)
+  Product.allProducts.push(this);
+  productNames.push(this.name);
 }
-let product1Elem = document.getElementById('left_product_img')
-let product2Elem = document.getElementById('right_product_img')
-let product3Elem = document.getElementById('center_product_img')
+
+var product1Elem = document.getElementById("left_product_img");
+var product2Elem = document.getElementById("center_product_img");
+var product3Elem = document.getElementById("right_product_img");
 
 //----------------------------prototype methods----------------------//
 
-Product.prototype.renderProduct = function(img, h2){
-  var imgs = document.createElement('img')
-  imgs.setAttribute("src", img)
+Product.prototype.renderProduct = function (img, h2) {
+  var imgs = document.createElement("img");
+  imgs.setAttribute("src", img);
   img.src = this.imgPath;
   img.alt = this.name;
-  h2 = document.createElement("h2")
-}
-
-
+  h2 = document.createElement("h2");
+};
 
 // renders a signle image/name
 
 //----------------------------global functions----------------------//
 
 function pickThreeProducts() {
-const doNotUse = [currentRight, currentLeft, currentCenter];
-let leftIndex = Math.floor(Math.random() * Product.allProducts.length);
-let rightIndex = Math.floor(Math.random() * Product.allProducts.length);
-let centerIndex = Math.floor(Math.random() * Product.allProducts.length);
+  const doNotUse = [currentRight, currentLeft, currentCenter];
+  let leftIndex = Math.floor(Math.random() * Product.allProducts.length);
+  let rightIndex = Math.floor(Math.random() * Product.allProducts.length);
+  let centerIndex = Math.floor(Math.random() * Product.allProducts.length);
 
-while (leftIndex === rightIndex
-  || leftIndex === centerIndex
-  || rightIndex === centerIndex
-  || Product.seen.includes(leftIndex)
-  || Product.seen.includes(rightIndex)
-  || Product.seen.includes(centerIndex)) {
-
+  while (
+    leftIndex === rightIndex ||
+    leftIndex === centerIndex ||
+    rightIndex === centerIndex ||
+    Product.seen.includes(leftIndex) ||
+    Product.seen.includes(rightIndex) ||
+    Product.seen.includes(centerIndex)
+  ) {
     rightIndex = Math.floor(Math.random() * Product.allProducts.length);
     leftIndex = Math.floor(Math.random() * Product.allProducts.length);
     centerIndex = Math.floor(Math.random() * Product.allProducts.length);
-
   }
 
-  Product.allProducts[leftIndex].views ++;
-  Product.allProducts[rightIndex].views ++;
-  Product.allProducts[centerIndex].views ++;
+  Product.allProducts[leftIndex].views++;
+  Product.allProducts[rightIndex].views++;
+  Product.allProducts[centerIndex].views++;
 
-  Product.seen[0] = leftIndex
-  Product.seen[1] = rightIndex
-  Product.seen[2] = centerIndex
+  Product.seen[0] = leftIndex;
+  Product.seen[1] = rightIndex;
+  Product.seen[2] = centerIndex;
 
-  product1Elem.src = Product.allProducts[leftIndex].imgPath
-  product1Elem.alt = Product.allProducts[leftIndex].name
+  product1Elem.src = Product.allProducts[leftIndex].imgPath;
+  product1Elem.alt = Product.allProducts[leftIndex].name;
 
-  product2Elem.src = Product.allProducts[rightIndex].imgPath
-  product2Elem.alt = Product.allProducts[rightIndex].name
+  product2Elem.src = Product.allProducts[rightIndex].imgPath;
+  product2Elem.alt = Product.allProducts[rightIndex].name;
 
-  product3Elem.src = Product.allProducts[centerIndex].imgPath
-  product3Elem.alt = Product.allProducts[centerIndex].name
-
+  product3Elem.src = Product.allProducts[centerIndex].imgPath;
+  product3Elem.alt = Product.allProducts[centerIndex].name;
 }
 
-
-
 function handleClick(e) {
-  for(var i in Product.allProducts){
+  for (var i in Product.allProducts) {
+    // increment times clicked for an product image object if it was clicked on the page
+    if (event.target.alt === Product.allProducts[i].name) {
+      Product.allProducts[i].clicks++;
 
-    if(e.target.alt == Product.allProducts[i].name){
-      Product.allProducts[i].clicks ++
-      Product.totalClicks ++
+      //total click votes tracking for the page is incremented while still clicking/voting on the page
+      Product.totalClicks++;
     }
   }
+  //when the user has clicked/voted the maximum number of times, show results, store both votes and times show per product in an array in local storage
+  if (Product.totalClicks > maxVote) {
+    sectionElement.removeEventListener("click", handleClick);
+    alert("Thanks for voting. Your results are below.");
+    updateVotes();
+    renderChart();
+    renderStats();
+    renderTable();
 
-  if(Product.totalClicks > maxVotes) {
-    console.log(Product.totalClicks, maxVotes)
-    productContainer.removeEventListener('click', handleClick)
-    updateVotes()
-    renderChart()
-    renderStats()
-    // renderTable()
-
-    // localStorage.setItem('totalProductVotes',JSON.stringify(productVotes))
-    // localStorage.setItem('totalProductShown',JSON.stringify(productShown))
+    //add all productVote array values to local storage after vote is complete
+    localStorage.setItem("totalProductVotes", JSON.stringify(productVotes));
+    localStorage.setItem("totalProductShowns", JSON.stringify(productShown));
   } else {
-
-    pickThreeProducts()
+    //when the votes are still needed, generate new product image set of 3
+    pickThreeProducts();
   }
 }
 
 function updateVotes() {
-  for(let i in Product.allProducts){
-    console.log(Product.allProducts.length)
-    productVotes[i] += Product.allProducts[i].clicks
-    console.log(productVotes)
-    console.log(i, Product.allProducts[i])
-    productShown[i] += Product.allProducts[i].views
+  for (let i in Product.allProducts) {
+    productVotes[i] += Product.allProducts[i].clicks;
+    productShown[i] += Product.allProducts[i].views;
   }
 }
 
- 
-var buttonLinks = document.getElementById('buttonLinks');
 function renderChart() {
-  let canvasEl = document.createElement('canvas');
-  canvasEl.setAttribute = ('id', 'productChart');
-  chartContainer.style.width = '500px';
-  chartContainer.style.height = '500px';
-  chartContainer.appendChild(canvasEl);
+  var sectionElement = document.getElementById("chart");
+  var titleElement = document.createElement("h2");
+  titleElement.textContent = "Number of votes and displays per product";
+  sectionElement.appendChild(titleElement);
 
-  let buttonEl = document.createElement('a');
-  buttonEl.textContent = 'Chart';
-  buttonEl.setAttribute('class', 'btn');
-  buttonEl.href = '#chartContainer';
-  buttonLinks.appendChild(buttonEl);
+  var canvasElement = document.createElement("canvas");
+  canvasElement.id = "product-vote-chart";
+  canvasElement.height = "300";
+  canvasElement.width = "600";
+  sectionElement.appendChild(canvasElement);
 
-  let ctx = canvasEl.getContext('2d');
-  let votes = [];
-  let names = [];
-  for(let i = 0; i < Product.allProducts.length; i++) {
-    console.log(Product.allProducts.length)
-    votes[i] = Product.allProducts[i].clicks;
-    names[i] = Product.allProducts[i].name;
-    console.log(names)
-  }
+  var context = document.getElementById("product-vote-chart").getContext("2d");
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: names,
-      datasets: [{
-        data: votes,
-        label: 'Votes',
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      title: {
-        display: true,
-        text: 'Votes Per Product',
-        fontSize: 50
-      },
-      scales: {
-        yAxes: [{
+  var voteChartData = {
+    label: "Votes per Product (cumulative)",
+    data: productVotes,
+    backgroundColor: "#404040",
+  };
+
+  var shownChartData = {
+    label: "Times shown per product (cumulative)",
+    data: productShown,
+    backgroundColor: "#0040ff",
+  };
+
+  var productInfo = {
+    labels: productNames,
+    datasets: [voteChartData, shownChartData],
+  };
+
+  var chartOptions = {
+    scales: {
+      yAxes: [
+        {
           ticks: {
             beginAtZero: true,
-            stepSize: 1
-          }
-        }]
-      }
-    }
+          },
+        },
+      ],
+    },
+  };
+
+  var productResultsChart = new Chart(context, {
+    type: "bar",
+    data: productInfo,
+    options: chartOptions,
   });
 }
 
+function renderTable() {
+  var tableRowElement, tableDataElement;
+  var votes = productVotes;
+  var shown = productShown;
 
-// function renderTable(){
+  for (var i = 0; i < productNames.length; i++) {
+    tableRowElement = document.createElement("tr");
 
-//   let tableRowElement, tableDataElement;
-//   let votes = productVotes
-//   let seen = productShown
+    tableDataElement = document.createElement("td");
+    tableDataElement.textContent = productNames[i];
+    tableRowElement.appendChild(tableDataElement);
 
-//   for(let i = 0; i < productNames.length; i++){
-//     tableRowElement = document.createElement('tr');
+    tableDataElement = document.createElement("td");
+    tableDataElement.textContent = votes[i];
+    tableRowElement.appendChild(tableDataElement);
 
-//     tableDataElement = document.createElement('td')
-//     tableDataElement.textContent = votes[i]
-//     tableRowElement.appendChild(tableDataElement)
+    tableDataElement = document.createElement("td");
+    tableDataElement.textContent = shown[i];
+    tableRowElement.appendChild(tableDataElement);
 
-//     tableDataElement = document.createElement('td')
-//     tableDataElement.textContent = seen[i]
-//     tableRowElement.appendChild(tableDataElement)
-
-//     if(productShown[i] > 0){
-//       let voteRate = Math.round(100 * (votes[i] / seen[i]))
-//       tableDataElement = document.createElement('td');
-//       tableDataElement.textContent = voteRate + '%'
-//       tableRowElement.appendChild(tableDataElement)
-//     } else {
-//       tableDataElement = document.createElement('td');
-//       tableDataElement.textContent = 'N/A'
-//       tableRowElement.appendChild(tableDataElement)
-//     }
-//     productTable.appendChild(tableRowElement)
-//   }
-//   sectionElement2.appendChild(productTable)
-// }
-
-function renderStats() {
-  var h1El = document.createElement('h1');
-  h1El.textContent = 'Stats';
-  stats.appendChild(h1El);
-
-  var buttonEl = document.createElement('a');
-  buttonEl.textContent = 'Stats';
-  buttonEl.setAttribute('class', 'btn');
-  buttonEl.href = '#statsContainer';
-  buttonLinks.appendChild(buttonEl);
-
-  for (var i = 0; i < Product.allProducts.length; i++) {
-    console.log(Product.allProducts.length)
-    var liEl = document.createElement('li');
-    liEl.textContent = Product.allProducts[i].clicks + ' votes for ' + Product.allProducts[i].name;
-    stats.appendChild(liEl);
+    productTable.appendChild(tableRowElement);
   }
+  sectionElement2.appendChild(productTable);
 }
 
+function renderStats() {
+  var sectionElement = document.getElementById("table");
+  var titleElement = document.createElement("h2");
+  titleElement.textContent = "Stats";
+  sectionElement.appendChild(titleElement);
+
+  var productName = document.createElement("td");
+  var tableRowElement = document.createElement("tr");
+
+  productName.textContent = "Product";
+  tableRowElement.appendChild(productName);
+
+  productTable.appendChild(tableRowElement);
+
+  var timesVoted = document.createElement("td");
+  timesVoted.textContent = "Number of Votes";
+  tableRowElement.appendChild(timesVoted);
+
+  productTable.appendChild(tableRowElement);
+
+  var timesShown = document.createElement("td");
+  timesShown.textContent = "Number of Times Shown";
+  tableRowElement.appendChild(timesShown);
+
+  productTable.appendChild(tableRowElement);
+}
 
 //----------------------------call functions----------------------//
 
-Product.allProducts.push(new Product('Bag', './busMallimages/bag.jpg'));
-Product.allProducts.push(new Product('banana', './busMallimages/banana.jpg'));
-Product.allProducts.push(new Product('bathroom', './busMallimages/bathroom.jpg'));
-Product.allProducts.push(new Product('boots', './busMallimages/boots.jpg'));
-Product.allProducts.push(new Product('breakfast', './busMallimages/breakfast.jpg'));
-Product.allProducts.push(new Product('bubblegum', './busMallimages/bubblegum.jpg'));
-Product.allProducts.push(new Product('chair', './busMallimages/chair.jpg'));
-Product.allProducts.push(new Product('cthulhu', './busMallimages/cthulhu.jpg'));
-Product.allProducts.push(new Product('dog-Duck', './busMallimages/dog-duck.jpg'));
-Product.allProducts.push(new Product('dragon', './busMallimages/dragon.jpg'));
-Product.allProducts.push(new Product('pen', './busMallimages/pen.jpg'));
-Product.allProducts.push(new Product('pet-Sweep', './busMallimages/pet-sweep.jpg'));
-Product.allProducts.push(new Product('scissors', './busMallimages/scissors.jpg'));
-Product.allProducts.push(new Product('shark', './busMallimages/shark.jpg'));
-Product.allProducts.push(new Product('sweep', './busMallimages/sweep.png'));
-Product.allProducts.push(new Product('tauntaun', './busMallimages/tauntaun.jpg'));
-Product.allProducts.push(new Product('unicorn', './busMallimages/unicorn.jpg'));
-Product.allProducts.push(new Product('water-Can', './busMallimages/water-can.jpg'));
-Product.allProducts.push(new Product('wine-Glass', './busMallimages/wine-glass.jpg'));
+Product.allProducts.push(new Product("Bag", "./busMallimages/bag.jpg"));
+Product.allProducts.push(new Product("banana", "./busMallimages/banana.jpg"));
+Product.allProducts.push(
+  new Product("bathroom", "./busMallimages/bathroom.jpg")
+);
+Product.allProducts.push(new Product("boots", "./busMallimages/boots.jpg"));
+Product.allProducts.push(
+  new Product("breakfast", "./busMallimages/breakfast.jpg")
+);
+Product.allProducts.push(
+  new Product("bubblegum", "./busMallimages/bubblegum.jpg")
+);
+Product.allProducts.push(new Product("chair", "./busMallimages/chair.jpg"));
+Product.allProducts.push(new Product("cthulhu", "./busMallimages/cthulhu.jpg"));
+Product.allProducts.push(
+  new Product("dog-Duck", "./busMallimages/dog-duck.jpg")
+);
+Product.allProducts.push(new Product("dragon", "./busMallimages/dragon.jpg"));
+Product.allProducts.push(new Product("pen", "./busMallimages/pen.jpg"));
+Product.allProducts.push(
+  new Product("pet-Sweep", "./busMallimages/pet-sweep.jpg")
+);
+Product.allProducts.push(
+  new Product("scissors", "./busMallimages/scissors.jpg")
+);
+Product.allProducts.push(new Product("shark", "./busMallimages/shark.jpg"));
+Product.allProducts.push(new Product("sweep", "./busMallimages/sweep.png"));
+Product.allProducts.push(
+  new Product("tauntaun", "./busMallimages/tauntaun.jpg")
+);
+Product.allProducts.push(new Product("unicorn", "./busMallimages/unicorn.jpg"));
+Product.allProducts.push(
+  new Product("water-Can", "./busMallimages/water-can.jpg")
+);
+Product.allProducts.push(
+  new Product("wine-Glass", "./busMallimages/wine-glass.jpg")
+);
 
-// if(localStorage.totalProductShown){
-//   productVotes = JSON.parse(localStorage.getItem('totalProductVotes'))
-//   productShown = JSON.parse(localStorage.getItem('totalProductShown'))
-// }
+if (localStorage.totalProductShown) {
+  productVotes = JSON.parse(localStorage.getItem("totalProductVotes"));
+  productShown = JSON.parse(localStorage.getItem("totalProductShown"));
+}
 
-productContainer.addEventListener('click', handleClick);
+sectionElement.addEventListener("click", handleClick);
 
-pickThreeProducts()
-
-//  const productNames = [1, 2, 3, 4, 5, 6];
-// const labelColors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-
-// var myChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: productNames,
-//         datasets: [{
-//             label: 'seen',
-//             data: productSeen,
-//             backgroundColor: labelColors,
-//             borderColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)',
-//                 'rgba(153, 102, 255, 1)',
-//                 'rgba(255, 159, 64, 1)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-        
-//     }
-// });
-// console.log(myChart.data)
+pickThreeProducts();
